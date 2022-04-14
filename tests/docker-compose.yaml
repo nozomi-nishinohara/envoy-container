@@ -7,3 +7,4 @@ services:
     container_name: envoy-test
     environment:
       BACKEND: localhost
+      XDS: "cds,lds"

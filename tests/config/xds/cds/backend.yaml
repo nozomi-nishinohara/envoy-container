@@ -1,0 +1,15 @@
+resources:
+  - name: &backend backend
+    ${{type}}: type.googleapis.com/envoy.config.cluster.v3.Cluster
+    lb_policy: ROUND_ROBIN
+    type: STRICT_DNS
+    dns_lookup_family: V4_ONLY
+    load_assignment:
+      cluster_name: *backend
+      endpoints:
+        - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: ${{BACKEND}}
+                    port_value: 8080

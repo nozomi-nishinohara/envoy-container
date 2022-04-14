@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  envoy-test:
+    image: envoy:test
+    volumes:
+      - ./config/xds:/etc/envoy/tpl/xds:ro
+    container_name: envoy-test
+    environment:
+      BACKEND: localhost

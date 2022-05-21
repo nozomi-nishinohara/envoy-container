@@ -47,10 +47,10 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "gcr.io/nozomi-nishinohara/envoy-container:{{ .Tag }}"
-      - "gcr.io/nozomi-nishinohara/envoy-container:v{{ .Major }}"
-      - "gcr.io/nozomi-nishinohara/envoy-container:v{{ .Major }}.{{ .Minor }}"
-      - "gcr.io/nozomi-nishinohara/envoy-container:latest"
+      - "ghcr.io/nozomi-nishinohara/envoy-container:{{ .Tag }}"
+      - "ghcr.io/nozomi-nishinohara/envoy-container:v{{ .Major }}"
+      - "ghcr.io/nozomi-nishinohara/envoy-container:v{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/nozomi-nishinohara/envoy-container:latest"
     dockerfile: Dockerfile
     extra_files:
       - docker-entorypoint.sh

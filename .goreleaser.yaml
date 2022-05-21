@@ -20,6 +20,8 @@ builds:
       - darwin
     goarch:
       - amd64
+    tags:
+      - netgo
 archives:
   - name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     replacements:
@@ -45,10 +47,10 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "nozomi-nishinohara/envoy-container:{{ .Tag }}-alpine"
-      - "nozomi-nishinohara/envoy-container:v{{ .Major }}-alpine"
-      - "nozomi-nishinohara/envoy-container:v{{ .Major }}.{{ .Minor }}-alpine"
-      - "nozomi-nishinohara/envoy-container:latest-alpine"
+      - "gcr.io/nozomi-nishinohara/envoy-container:{{ .Tag }}"
+      - "gcr.io/nozomi-nishinohara/envoy-container:v{{ .Major }}"
+      - "gcr.io/nozomi-nishinohara/envoy-container:v{{ .Major }}.{{ .Minor }}"
+      - "gcr.io/nozomi-nishinohara/envoy-container:latest"
     dockerfile: Dockerfile
     extra_files:
       - docker-entorypoint.sh

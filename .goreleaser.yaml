@@ -1,0 +1,55 @@
+project_name: yaml-merge
+before:
+  hooks:
+    - go mod tidy
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+builds:
+  - binary: yaml-merge
+    main: .
+    ldflags:
+      - -s -w
+      - -extldflags
+      - -static
+    env:
+      - GO111MODULE=on
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+archives:
+  - name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    replacements:
+      darwin: darwin
+      windows: windows
+      linux: linux
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+    format: binary
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+
+release:
+  prerelease: auto
+
+dockers:
+  - id: yaml-merge
+    goos: linux
+    goarch: amd64
+    image_templates:
+      - "nozomi-nishinohara/envoy-container:{{ .Tag }}-alpine"
+      - "nozomi-nishinohara/envoy-container:v{{ .Major }}-alpine"
+      - "nozomi-nishinohara/envoy-container:v{{ .Major }}.{{ .Minor }}-alpine"
+      - "nozomi-nishinohara/envoy-container:latest-alpine"
+    dockerfile: Dockerfile
+    extra_files:
+      - docker-entorypoint.sh
+      - envoy.yaml
